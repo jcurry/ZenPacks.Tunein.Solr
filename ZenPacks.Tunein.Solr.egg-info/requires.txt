@@ -1,0 +1,2 @@
+ZenPacks.zenoss.PythonCollector>=1.6.0
+ZenPacks.zenoss.ZenJMX>=3.9.6

@@ -1,0 +1,302 @@
+name: ZenPacks.Tunein.Solr
+zProperties:
+  DEFAULT:
+    category: Solr
+  zSolrCore:
+    type: lines
+    default: 
+      - tunein-keyword
+      - tunein-topic
+      - tunein-alias
+      - tunein-program
+      - tunein-station
+      - tunein-user
+
+device_classes:
+  /Server/Linux/Tomcat/Solr:
+    remove: True
+
+    zProperties:
+      zPythonClass: ZenPacks.Tunein.Solr.SolrDevice
+
+    templates:
+      SolrCore:
+        description: Monitor various metrics for Solr Core component
+        targetPythonClass: ZenPacks.Tunein.Solr.SolrCore
+
+        datasources:
+          SolrQuerySelect:
+            type: SolrDataSource
+            cycletime: 300
+            component: ${here/id}
+            eventClass: /Solr
+            CoreName: ${here/coreName}
+            SolrCat: QUERYHANDLER
+            SolrKey: /select
+
+            datapoints:
+              errors:
+                rrdtype: GAUGE
+              timeouts:
+                rrdtype: GAUGE
+              avgRequestsPerSecond:
+                rrdtype: GAUGE
+              avgTimePerRequest:
+                rrdtype: GAUGE
+              95thPcRequestTime:
+                rrdtype: GAUGE
+              999thPcRequestTime:
+                rrdtype: GAUGE
+
+          SolrQueryUpdate:
+            type: SolrDataSource
+            cycletime: 300
+            component: ${here/id}
+            eventClass: /Solr
+            CoreName: ${here/coreName}
+            SolrCat: QUERYHANDLER
+            SolrKey: /update
+
+            datapoints:
+              errors:
+                rrdtype: GAUGE
+              timeouts:
+                rrdtype: GAUGE
+              avgRequestsPerSecond:
+                rrdtype: GAUGE
+              avgTimePerRequest:
+                rrdtype: GAUGE
+              95thPcRequestTime:
+                rrdtype: GAUGE
+              999thPcRequestTime:
+                rrdtype: GAUGE
+
+          SolrQueryImport:
+            type: SolrDataSource
+            cycletime: 300
+            component: ${here/id}
+            eventClass: /Solr
+            CoreName: ${here/coreName}
+            SolrCat: QUERYHANDLER
+            SolrKey: /import
+
+            datapoints:
+              errors:
+                rrdtype: GAUGE
+              timeouts:
+                rrdtype: GAUGE
+              avgRequestsPerSecond:
+                rrdtype: GAUGE
+              avgTimePerRequest:
+                rrdtype: GAUGE
+              95thPcRequestTime:
+                rrdtype: GAUGE
+              999thPcRequestTime:
+                rrdtype: GAUGE
+
+          SolrQueryReplication:
+            type: SolrDataSource
+            cycletime: 300
+            component: ${here/id}
+            eventClass: /Solr
+            CoreName: ${here/coreName}
+            SolrCat: QUERYHANDLER
+            SolrKey: /replication
+
+            datapoints:
+              errors:
+                rrdtype: GAUGE
+              timeouts:
+                rrdtype: GAUGE
+              avgRequestsPerSecond:
+                rrdtype: GAUGE
+              avgTimePerRequest:
+                rrdtype: GAUGE
+              indexSize:
+                rrdtype: GAUGE
+              95thPcRequestTime:
+                rrdtype: GAUGE
+              999thPcRequestTime:
+                rrdtype: GAUGE
+
+          SolrCore:
+            type: SolrDataSource
+            cycletime: 300
+            component: ${here/id}
+            eventClass: /Solr
+            CoreName: ${here/coreName}
+            SolrCat: CORE
+            SolrKey: searcher
+
+            datapoints:
+              numDocs:
+                rrdtype: GAUGE
+              maxDoc:
+                rrdtype: GAUGE
+              deletedDocs:
+                rrdtype: GAUGE
+              indexVersion:
+                rrdtype: GAUGE
+              warmupTime:
+                rrdtype: GAUGE
+
+        graphs:
+          Solr Query Select:
+            units: 
+
+            graphpoints:
+              errors:
+                dpName: SolrQuerySelect_errors
+                format: "%7.2lf"
+              timeouts:
+                dpName: SolrQuerySelect_timeouts
+                format: "%7.2lf"
+              avgRequestsPerSecond:
+                dpName: SolrQuerySelect_avgRequestsPerSecond
+                format: "%7.2lf"
+              avgTimePerRequest:
+                dpName: SolrQuerySelect_avgTimePerRequest
+                format: "%7.2lf"
+              95thPcRequestTime:
+                dpName: SolrQuerySelect_95thPcRequestTime
+                format: "%7.2lf"
+
+          Solr Query Update:
+            units: 
+
+            graphpoints:
+              errors:
+                dpName: SolrQueryUpdate_errors
+                format: "%7.2lf"
+              timeouts:
+                dpName: SolrQueryUpdate_timeouts
+                format: "%7.2lf"
+              avgRequestsPerSecond:
+                dpName: SolrQueryUpdate_avgRequestsPerSecond
+                format: "%7.2lf"
+              avgTimePerRequest:
+                dpName: SolrQueryUpdate_avgTimePerRequest
+                format: "%7.2lf"
+              95thPcRequestTime:
+                dpName: SolrQueryUpdate_95thPcRequestTime
+                format: "%7.2lf"
+
+          Solr Query Import:
+            units: 
+
+            graphpoints:
+              errors:
+                dpName: SolrQueryImport_errors
+                format: "%7.2lf"
+              timeouts:
+                dpName: SolrQueryImport_timeouts
+                format: "%7.2lf"
+              avgRequestsPerSecond:
+                dpName: SolrQueryImport_avgRequestsPerSecond
+                format: "%7.2lf"
+              avgTimePerRequest:
+                dpName: SolrQueryImport_avgTimePerRequest
+                format: "%7.2lf"
+              95thPcRequestTime:
+                dpName: SolrQueryImport_95thPcRequestTime
+                format: "%7.2lf"
+
+          Solr Query Replication:
+            units: 
+
+            graphpoints:
+              errors:
+                dpName: SolrQueryReplication_errors
+                format: "%7.2lf"
+              timeouts:
+                dpName: SolrQueryReplication_timeouts
+                format: "%7.2lf"
+              avgRequestsPerSecond:
+                dpName: SolrQueryReplication_avgRequestsPerSecond
+                format: "%7.2lf"
+              avgTimePerRequest:
+                dpName: SolrQueryReplication_avgTimePerRequest
+                format: "%7.2lf"
+              95thPcRequestTime:
+                dpName: SolrQueryReplication_95thPcRequestTime
+                format: "%7.2lf"
+
+          Solr Core:
+            units: 
+
+            graphpoints:
+              numDocs:
+                dpName: SolrCore_numDocs
+                format: "%7.2lf"
+              maxDoc:
+                dpName: SolrCore_maxDoc
+                format: "%7.2lf"
+              deletedDocs:
+                dpName: SolrCore_deletedDocs
+                format: "%7.2lf"
+              indexVersion:
+                dpName: SolrCore_indexVersion
+                format: "%7.2lf"
+              warmupTime:
+                dpName: SolrCore_warmupTime
+                format: "%7.2lf"
+
+          Solr 999thPc Request Time:
+            units: 
+
+            graphpoints:
+              Select999thPcRequestTime:
+                dpName: SolrQuerySelect_999thPcRequestTime
+                format: "%7.2lf"
+
+              Update999thPcRequestTime:
+                dpName: SolrQueryUpdate_999thPcRequestTime
+                format: "%7.2lf"
+              Import999thPcRequestTime:
+                dpName: SolrQueryImport_999thPcRequestTime
+                format: "%7.2lf"
+
+              Replication999thPcRequestTime:
+                dpName: SolrQueryReplication_999thPcRequestTime
+                format: "%7.2lf"
+
+classes:
+  DEFAULTS:
+    base: [zenpacklib.Component]
+
+  SolrDevice:
+    base: [zenpacklib.Device]
+    label: Solr Server
+
+  SolrSolr:
+    label: Solr
+    order: 60
+
+  SolrCore:
+    label: Solr Core
+    order: 70
+
+    properties:
+      coreName: 
+        type: string
+        label: Core Name
+        label_width: 150
+      indexVersion: 
+        type: int
+        label: Index Version
+        label_width: 100
+      indexSize: 
+        type: string
+        label: Index Size
+        label_width: 100
+      warmupTime: 
+        type: int
+        label: Warmup Time
+        label_width: 100
+
+
+class_relationships:
+  - SolrDevice 1:MC SolrCore
+
+
+

@@ -1,0 +1,2 @@
+solr/tunein-keyword:type=queryResultCache,id=org.apache.solr.search.LRUCache
+
