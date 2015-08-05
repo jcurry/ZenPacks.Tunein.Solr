@@ -268,10 +268,6 @@ classes:
     base: [zenpacklib.Device]
     label: Solr Server
 
-  SolrSolr:
-    label: Solr
-    order: 60
-
   SolrCore:
     label: Solr Core
     order: 70
